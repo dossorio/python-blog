@@ -18,7 +18,14 @@ def favourite_number():
     if number is None or number == '':
         number = 'No number selected!'
 
+    bottle.response.set_cookie('number', number)
+    return bottle.redirect('/show-number')
+
+@bottle.route('/show-number')
+def show_number():
+    number = bottle.request.get_cookie('number')
     return bottle.template('favourite_number', {'number': number})
+
 
 
 bottle.debug(True)
